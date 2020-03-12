@@ -1,0 +1,96 @@
+//Vineet Kumar
+//cleanup the entire build to start from scratch
+//git setup
+//resharper C++
+//class conversion
+//sprite change
+//additional sprites
+//input detection and response
+//collision detection
+
+
+#include<SDL.h>
+#include "SDL_image.h"
+
+
+SDL_Window* g_pWindow = nullptr;			//window pointer
+SDL_Renderer* g_pRenderer = nullptr;		//renderer pointer
+SDL_Texture* g_pSpriteKay = nullptr;		//texture pointer for character
+SDL_Texture* g_pSpriteText = nullptr;		//texture pointer for text
+
+SDL_Rect src,src1;
+SDL_Rect dst, dst1;
+
+void draw(SDL_Renderer* renderer)
+{
+	//source location and dimensions
+	src.x = 0;
+	src.y = 0;
+	src.w = 800;
+	src.h = 600;
+
+	//destination location and dimensions
+	dst.x = 0;
+	dst.y = 0;
+	dst.w = src.w;
+	dst.h = src.h;
+	SDL_SetRenderDrawColor(renderer, 198, 146, 226, 255);
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, g_pSpriteKay, &src, &dst);
+
+	//source location and dimensions
+	src1.x = 0;
+	src1.y = 0;
+	src1.w = 300;
+	src1.h = 60;
+
+	//destination location and dimensions
+	dst1.x = 240;
+	dst1.y = 35;
+	dst1.w = src1.w;
+	dst1.h = src1.h;
+	SDL_RenderCopy(renderer, g_pSpriteText, &src1, &dst1);
+	SDL_RenderPresent(renderer);
+}
+
+
+void drawTexture(SDL_Renderer*, SDL_Rect, SDL_Rect);
+
+int main(int argc, char* argv[])
+{
+
+	int flags = SDL_INIT_EVERYTHING;
+
+	if (SDL_Init(flags) == 0) 
+	{
+		//first create your window
+		g_pWindow = SDL_CreateWindow("Kay.OS - v0.01", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+		
+		//check if it has succeeded and then proceed..
+		if (g_pWindow != nullptr)
+		{
+			g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, SDL_RENDERER_PRESENTVSYNC);
+
+			//check if renderer creation succeessful..
+
+			if (g_pRenderer != nullptr)
+			{
+				IMG_Init(IMG_INIT_PNG);
+				g_pSpriteKay = IMG_LoadTexture(g_pRenderer, "background.png");
+				g_pSpriteText = IMG_LoadTexture(g_pRenderer, "hello.png");
+
+				draw(g_pRenderer);
+				system("pause");
+
+			}
+		}
+	}
+
+	//destroy all pointers WITHOUT FAIL!
+	SDL_DestroyWindow(g_pWindow);
+	SDL_DestroyRenderer(g_pRenderer);
+	SDL_DestroyTexture(g_pSpriteKay);
+	SDL_DestroyTexture(g_pSpriteText);
+
+	return 0;
+}

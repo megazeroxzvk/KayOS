@@ -1,0 +1,5 @@
+﻿  GameMech.cpp
+D:\KayOS\GameMech.cpp(18,23): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\KayOS\GameMech.cpp(25,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\KayOS\GameMech.cpp(195,25): warning C4018: '<': signed/unsigned mismatch
+  KayOS.vcxproj -> D:\KayOS\Debug\KayOS.exe
